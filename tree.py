@@ -23,7 +23,7 @@ class Tree:
         for index in range(1,len(attributes)):
             try:
                 float(data_matrix[0][index])
-                self.set_intervalos(data_matrix, index)  
+                self.set_intervalos(data_matrix, index)
             except ValueError:
                 pass
 
@@ -38,7 +38,7 @@ class Tree:
 
         intervalo = []
         i = 0
-        
+
         for value, label in list_number:
             if i == 0:
                 min_value = value
@@ -52,13 +52,13 @@ class Tree:
                 else:
                     i = 0
             i += 1
-        
+
         intervalo.append((min_value, value + 0.1, label))
 
         self.transformations[self.reverse_attributes[index]] = intervalo
 
     def entropia(self, data_matrix):
-        
+
         count_classes = {} # dicionário de tuplos para armazenar a quantidade de vezes que cada espécie aparece no csv e a sua respetiva entropia
 
         # calcular a quantidade de cada espécie
@@ -76,11 +76,8 @@ class Tree:
 
         for key, value in count_classes.items():
             calculate_entropia += -(value / len(data_matrix)) * math.log2(value / len(data_matrix))
-            calculate_entropia *= (value / len(data_matrix)) 
+            calculate_entropia *= (value / len(data_matrix))
             count_classes[key] = (value, calculate_entropia)
             count_classes[key] = calculate_entropia
             calculate_entropia = 0
-        print(count_classes) 
-
-        
-
+        print(count_classes)

@@ -1,0 +1,8 @@
+# Ignore os arquivos do Visual Studio Code
+.vscode
+
+# Ignore os arquivos de sistema do Mac
+.DS_Store
+
+# Ignore os arquivos do Google-Drive
+Icon?
