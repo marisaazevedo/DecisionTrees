@@ -8,6 +8,8 @@ class Tree:
         self.classe = label_class
         self.transformations = {} # dicionario com os intervalos de cada coluna (variavel) por ordem crescente
         self.possible_objectives = []
+        self.entropy_class = self.entropy([linha[-1] for linha in data_matrix])
+        self.entropy_atrributes = {}
 
         for row in data_matrix:
             type_class = row[-1]
@@ -23,9 +25,10 @@ class Tree:
         for index in range(1,len(attributes)):
             try:
                 float(data_matrix[0][index])
-                self.set_intervalos(data_matrix, index)
+                self.set_intervalos(data_matrix, index)  
             except ValueError:
                 pass
+        self.attribute_entropy(data_matrix)
 
     def set_intervalos(self, data_matrix , index):  # guardo os intervalos e o seu tipo do classe, para um  atributo.
 
@@ -38,7 +41,7 @@ class Tree:
 
         intervalo = []
         i = 0
-
+        
         for value, label in list_number:
             if i == 0:
                 min_value = value
@@ -52,32 +55,48 @@ class Tree:
                 else:
                     i = 0
             i += 1
-
+        
         intervalo.append((min_value, value + 0.1, label))
 
         self.transformations[self.reverse_attributes[index]] = intervalo
 
-    def entropia(self, data_matrix):
-
-        count_classes = {} # dicionário de tuplos para armazenar a quantidade de vezes que cada espécie aparece no csv e a sua respetiva entropia
-
-        # calcular a quantidade de cada espécie
-
-        for row in data_matrix:
-            type_class = row[-1]
-            if type_class not in count_classes:
-                count_classes[type_class] = 1
+    
+    def entropy(self, data_label):
+        count_classes = {}
+        total = len(data_label)
+        entropy = 0
+        
+        for valeu in data_label:
+            if  valeu not in count_classes:
+                count_classes[valeu] = 1
             else:
-                count_classes[type_class] += 1
+                count_classes[valeu] += 1
 
-        # calcular a entropia
+        for value in count_classes.values():
+            entropy += -(value / total) * math.log2(value / total)
 
-        calculate_entropia = 0
+        return entropy
+    
+    def attribute_entropy(self,data_matrix):
+        
+        for key, val in self.attributes.items():
+            self.entropy_atrributes[0] = 0
+            if key is not self.classe and key != 'ID':
+                unique_attributes = list(set(linha[val] for linha in data_matrix))
+                entropy = 0
+                for value in unique_attributes:
+                    subset = []
+                    for i in range(len(data_matrix)):
+                        if(data_matrix[i][val] == value):
+                            subset.append(data_matrix[i][-1])
+                    subset_entropy = self.entropy(subset)
+                    subset_probability = len(subset)/ len(data_matrix)
+                    entropy += subset_probability * subset_entropy
+                self.entropy_atrributes[val] = entropy
 
-        for key, value in count_classes.items():
-            calculate_entropia += -(value / len(data_matrix)) * math.log2(value / len(data_matrix))
-            calculate_entropia *= (value / len(data_matrix))
-            count_classes[key] = (value, calculate_entropia)
-            count_classes[key] = calculate_entropia
-            calculate_entropia = 0
-        print(count_classes)
+        
+        
+
+
+    
+
