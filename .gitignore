@@ -1,8 +1,5 @@
-# Ignore os arquivos do Visual Studio Code
+.idea
+__pycache__
 .vscode
-
-# Ignore os arquivos de sistema do Mac
 .DS_Store
-
-# Ignore os arquivos do Google-Drive
 Icon?
