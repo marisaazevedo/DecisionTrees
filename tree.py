@@ -29,6 +29,7 @@ class Tree:
             except ValueError:
                 pass
         self.attribute_entropy(data_matrix)
+        self.info_gain = self.information_gain()
 
     def set_intervalos(self, data_matrix , index):  # guardo os intervalos e o seu tipo do classe, para um  atributo.
 
@@ -95,8 +96,11 @@ class Tree:
                 self.entropy_atrributes[val] = entropy
 
         
-        
+    def information_gain(self):
+        info_gain = {}
+        for key, val in self.attributes.items():
+            if key is not self.classe and key != 'ID':
+                info_gain[key] = self.entropy_class - self.entropy_atrributes[val]       
 
-
-    
+        return info_gain
 

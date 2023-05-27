@@ -29,6 +29,6 @@ def main():
         file.close()
 
     tree = Tree(data_matrix, attributes, label_class)
-    tree.entropia(data_matrix)
+
 
 main()
