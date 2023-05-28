@@ -17,6 +17,6 @@ Para testar a implementação, siga as seguintes instruções:
 
 ## Realizado por
 
-- Beatriz Sá
-- Marisa Azevedo
-- Marta Pereira
+- [Beatriz Sá](https://github.com/beatrizmsa/)
+- [Marisa Azevedo](https://github.com/marisaazevedo/)
+- [Marta Pereira](https://github.com/martapereira0/)
