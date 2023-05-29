@@ -5,13 +5,14 @@ from tree import Tree
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('filename', help = "CSV filename")
+    parser.add_argument('-train','--filenametrain', help = "CSV filename for train")
+    parser.add_argument('-test','--filename', help="CSV filename for test")
     args = parser.parse_args()
 
     if len(argv) == 1:
         exit(0)
 
-    with open(args.filename,'rt') as file:
+    with open(args.filenametrain,'rt') as file:
 
         data_matrix_reader = csv.reader(file)
         first_row = data_matrix_reader.__next__()
@@ -29,7 +30,20 @@ def main():
         file.close()
 
     tree = Tree(data_matrix, attributes, label_class)
-
     print(tree.root)
 
+    if args.filename is not None:
+        with open(args.filename, 'rt') as file:
+            data_matrix_reader = csv.reader(file)
+            firstRow = data_matrix_reader.__next__()
+
+            for aux in data_matrix_reader:
+                if not aux:
+                    break
+
+                dictionary = {}  # type: dict(str,str)
+                for i in range(len(firstRow)):
+                    dictionary[firstRow[i]] = aux[i]
+
+                print(tree.tranform([dictionary]))
 main()

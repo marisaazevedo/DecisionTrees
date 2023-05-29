@@ -11,9 +11,9 @@ Para testar a implementação, siga as seguintes instruções:
 3. Navegue até o diretório onde os arquivos do projeto estão localizados.
 4. Execute o seguinte comando:
 
-    ```python3 decisiontree.py _.csv```
+    ```python3 decisiontree.py -train 'train_file.csv' -test 'test_file.csv' ```
 
-      Substitua o "_" pelo nome do conjunto de dados que deseja usar. As opções disponíveis são: restaurant, weather ou iris. Certifique-se de fornecer o caminho completo para o arquivo CSV.
+      As opções disponíveis são: restaurant, weather ou iris. Certifique-se de fornecer o caminho completo para o arquivo CSV.
 
 ## Realizado por
 
